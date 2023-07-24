@@ -13,11 +13,31 @@ export default function TextForm(props) {
 
   const handleOnChanged = (event) => {
     setText(event.target.value);
-    setNumOfWords(text === "" ? 0 : text.split(" ").length);
+    setNumOfWords(countNumOfWords(text));
     setTimeToRead(Math.ceil(numOfWords * 0.008));
   };
 
-  const [text, setText] = useState("Enter text here!");
+  const handleClearClick = () => {
+    let newText = "";
+    setText(newText);
+  };
+
+  function countNumOfWords(_text) {
+    let wordCount = 0;
+    let sentences = _text.split("\n");
+
+    sentences.forEach((sentence) => {
+      let words = sentence.split(" ");
+      console.log(words);
+      words.forEach((word) => {
+        if (word !== "") wordCount++;
+      });
+    });
+
+    return wordCount;
+  }
+
+  const [text, setText] = useState("");
   const [numOfWords, setNumOfWords] = useState(text.split(" ").length);
   const [TimeToRead, setTimeToRead] = useState(Math.ceil(numOfWords * 0.008));
 
@@ -39,6 +59,9 @@ export default function TextForm(props) {
         </button>
         <button className="btn btn-primary mx-2" onClick={handleLowercaseClick}>
           Convert to Lowercase
+        </button>
+        <button className="btn btn-primary mx-2" onClick={handleClearClick}>
+          Clear text
         </button>
       </div>
       <div className="container my-3">
