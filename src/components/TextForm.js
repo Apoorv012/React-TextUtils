@@ -12,9 +12,12 @@ export default function TextForm(props) {
   };
 
   const handleOnChanged = (event) => {
-    setText(event.target.value);
-    setNumOfWords(countNumOfWords(text));
-    setTimeToRead(Math.ceil(numOfWords * 0.008));
+    const newText = event.target.value;
+    setText(newText);
+    const newNumOfWords = countNumOfWords(newText);
+    setNumOfWords(newNumOfWords);
+    const newTimeToRead = Math.ceil(newNumOfWords * 0.008);
+    setTimeToRead(newTimeToRead);
   };
 
   const handleClearClick = () => {
