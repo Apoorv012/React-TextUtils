@@ -29,15 +29,20 @@ export default function TextForm(props) {
   };
 
   const handleSentencecaseClick = () => {
-    let sentences = text.toLowerCase().split("\n");
-    let newSentences = [];
-    sentences.forEach((sentence) => {
-      let newSentence =
-        sentence.charAt(0).toUpperCase() + sentence.substring(1);
-      newSentences.push(newSentence);
+    let paragraphs = text.toLowerCase().split("\n");
+    let newParagraphs = [];
+    paragraphs.forEach((paragraph) => {
+      let sentences = paragraph.split(". ");
+      let newSentences = [];
+      sentences.forEach((sentence) => {
+        let newSentence =
+          sentence.charAt(0).toUpperCase() + sentence.substring(1);
+        newSentences.push(newSentence);
+      });
+      newParagraphs.push(newSentences.join(". "));
     });
 
-    let newText = newSentences.join("\n");
+    let newText = newParagraphs.join("\n");
     setText(newText);
   };
 
