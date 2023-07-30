@@ -11,6 +11,61 @@ export default function TextForm(props) {
     setText(newText);
   };
 
+  const handleTitlecaseClick = () => {
+    let sentences = text.toLowerCase().split("\n");
+    let newSentences = [];
+    sentences.forEach((sentence) => {
+      let words = sentence.split(" ");
+      let newWords = [];
+      words.forEach((word) => {
+        let newWord = word.charAt(0).toUpperCase() + word.substring(1);
+        newWords.push(newWord);
+      });
+      newSentences.push(newWords.join(" "));
+    });
+
+    let newText = newSentences.join("\n");
+    setText(newText);
+  };
+
+  const handleSentencecaseClick = () => {
+    let sentences = text.toLowerCase().split("\n");
+    let newSentences = [];
+    sentences.forEach((sentence) => {
+      let newSentence =
+        sentence.charAt(0).toUpperCase() + sentence.substring(1);
+      newSentences.push(newSentence);
+    });
+
+    let newText = newSentences.join("\n");
+    setText(newText);
+  };
+
+  const handleInversecaseClick = () => {
+    let shouldBeUpper = true;
+    let newText = "";
+    for (let i = 0; i < text.length; i++) {
+      if (shouldBeUpper) {
+        newText += text.charAt(i).toUpperCase();
+        shouldBeUpper = false;
+      } else {
+        newText += text.charAt(i).toLowerCase();
+        shouldBeUpper = true;
+      }
+    }
+
+    setText(newText);
+  };
+
+  const handleCopyToClipboard = () => {
+    try {
+      navigator.clipboard.writeText(text);
+    } catch {
+      document.getElementById("myBox").select();
+      document.execCommand("copy");
+    }
+  };
+
   const handleOnChanged = (event) => {
     const newText = event.target.value;
     setText(newText);
@@ -23,6 +78,7 @@ export default function TextForm(props) {
   const handleClearClick = () => {
     let newText = "";
     setText(newText);
+    handleOnChanged();
   };
 
   function countNumOfWords(_text) {
@@ -31,7 +87,6 @@ export default function TextForm(props) {
 
     sentences.forEach((sentence) => {
       let words = sentence.split(" ");
-      console.log(words);
       words.forEach((word) => {
         if (word !== "") wordCount++;
       });
@@ -62,6 +117,27 @@ export default function TextForm(props) {
         </button>
         <button className="btn btn-primary mx-2" onClick={handleLowercaseClick}>
           Convert to Lowercase
+        </button>
+        <button className="btn btn-primary mx-2" onClick={handleTitlecaseClick}>
+          Convert to Titlecase
+        </button>
+        <button
+          className="btn btn-primary mx-2"
+          onClick={handleSentencecaseClick}
+        >
+          Convert to Sentencecase
+        </button>
+        <button
+          className="btn btn-primary mx-2"
+          onClick={handleInversecaseClick}
+        >
+          Convert to Inversecase
+        </button>
+        <button
+          className="btn btn-primary mx-2"
+          onClick={handleCopyToClipboard}
+        >
+          Copy to clipboard
         </button>
         <button className="btn btn-primary mx-2" onClick={handleClearClick}>
           Clear text
