@@ -78,7 +78,8 @@ export default function TextForm(props) {
   const handleClearClick = () => {
     let newText = "";
     setText(newText);
-    handleOnChanged();
+    setNumOfWords(0);
+    setTimeToRead(0);
   };
 
   function countNumOfWords(_text) {
