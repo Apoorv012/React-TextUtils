@@ -102,8 +102,8 @@ export default function TextForm(props) {
   }
 
   const [text, setText] = useState("");
-  const [numOfWords, setNumOfWords] = useState(text.split(" ").length);
-  const [TimeToRead, setTimeToRead] = useState(Math.ceil(numOfWords * 0.008));
+  const [numOfWords, setNumOfWords] = useState(0);
+  const [TimeToRead, setTimeToRead] = useState(0);
 
   return (
     <>
